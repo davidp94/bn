@@ -2,7 +2,6 @@ use std::ops::{Add, Mul, Neg, Sub};
 use fields::{const_fq, FieldElement, Fq, Fq12, Fq2, Fr, fq2_nonresidue};
 use arith::U256;
 use std::fmt;
-use rand::Rng;
 
 #[cfg(feature = "rustc-serialize")]
 use rustc_serialize::{Decodable, Decoder, Encodable, Encoder};
@@ -20,7 +19,6 @@ pub trait GroupElement
     + Mul<Fr, Output = Self> {
     fn zero() -> Self;
     fn one() -> Self;
-    fn random<R: Rng>(rng: &mut R) -> Self;
     fn is_zero(&self) -> bool;
     fn double(&self) -> Self;
 }
@@ -284,10 +282,6 @@ impl<P: GroupParams> GroupElement for G<P> {
 
     fn one() -> Self {
         P::one()
-    }
-
-    fn random<R: Rng>(rng: &mut R) -> Self {
-        P::one() * Fr::random(rng)
     }
 
     fn is_zero(&self) -> bool {

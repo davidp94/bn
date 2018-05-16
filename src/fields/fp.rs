@@ -1,4 +1,3 @@
-use rand::Rng;
 use std::ops::{Add, Mul, Neg, Sub};
 use super::FieldElement;
 
@@ -113,10 +112,6 @@ macro_rules! field_impl {
             #[inline]
             fn one() -> Self {
                 $name(U256($one))
-            }
-
-            fn random<R: Rng>(rng: &mut R) -> Self {
-                $name(U256::random(rng, &U256($modulus)))
             }
 
             #[inline]

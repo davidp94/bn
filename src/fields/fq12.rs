@@ -1,6 +1,5 @@
 use fields::{const_fq, FieldElement, Fq, Fq2, Fq6};
 use std::ops::{Add, Mul, Neg, Sub};
-use rand::Rng;
 
 use arith::U256;
 
@@ -279,13 +278,6 @@ impl FieldElement for Fq12 {
         Fq12 {
             c0: Fq6::one(),
             c1: Fq6::zero(),
-        }
-    }
-
-    fn random<R: Rng>(rng: &mut R) -> Self {
-        Fq12 {
-            c0: Fq6::random(rng),
-            c1: Fq6::random(rng),
         }
     }
 

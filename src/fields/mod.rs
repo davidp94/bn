@@ -4,7 +4,6 @@ mod fq6;
 mod fq12;
 
 use arith::U256;
-use rand::Rng;
 use std::ops::{Add, Mul, Neg, Sub};
 use std::fmt::Debug;
 
@@ -26,7 +25,6 @@ pub trait FieldElement
     + Debug {
     fn zero() -> Self;
     fn one() -> Self;
-    fn random<R: Rng>(&mut R) -> Self;
     fn is_zero(&self) -> bool;
     fn squared(&self) -> Self {
         (*self) * (*self)

@@ -1,7 +1,6 @@
 extern crate byteorder;
 #[macro_use]
 extern crate crunchy;
-extern crate rand;
 #[cfg(feature = "rustc-serialize")]
 extern crate rustc_serialize;
 
@@ -13,7 +12,6 @@ use fields::FieldElement;
 use groups::GroupElement;
 
 use std::ops::{Add, Mul, Neg, Sub};
-use rand::Rng;
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 #[cfg_attr(feature = "rustc-serialize", derive(RustcDecodable, RustcEncodable))]
@@ -26,9 +24,6 @@ impl Fr {
     }
     pub fn one() -> Self {
         Fr(fields::Fr::one())
-    }
-    pub fn random<R: Rng>(rng: &mut R) -> Self {
-        Fr(fields::Fr::random(rng))
     }
     pub fn pow(&self, exp: Fr) -> Self {
         Fr(self.0.pow(exp.0))
@@ -110,9 +105,6 @@ impl Fq {
     }
     pub fn one() -> Self {
         Fq(fields::Fq::one())
-    }
-    pub fn random<R: Rng>(rng: &mut R) -> Self {
-        Fq(fields::Fq::random(rng))
     }
     pub fn pow(&self, exp: Fq) -> Self {
         Fq(self.0.pow(exp.0))
@@ -218,7 +210,6 @@ pub trait Group
     + Mul<Fr, Output = Self> {
     fn zero() -> Self;
     fn one() -> Self;
-    fn random<R: Rng>(rng: &mut R) -> Self;
     fn is_zero(&self) -> bool;
     fn normalize(&mut self);
 }
@@ -238,7 +229,6 @@ pub trait Group
     + Mul<Fr, Output = Self> {
     fn zero() -> Self;
     fn one() -> Self;
-    fn random<R: Rng>(rng: &mut R) -> Self;
     fn is_zero(&self) -> bool;
     fn normalize(&mut self);
 }
@@ -284,9 +274,6 @@ impl Group for G1 {
     }
     fn one() -> Self {
         G1(groups::G1::one())
-    }
-    fn random<R: Rng>(rng: &mut R) -> Self {
-        G1(groups::G1::random(rng))
     }
     fn is_zero(&self) -> bool {
         self.0.is_zero()
@@ -411,9 +398,6 @@ impl Group for G2 {
     }
     fn one() -> Self {
         G2(groups::G2::one())
-    }
-    fn random<R: Rng>(rng: &mut R) -> Self {
-        G2(groups::G2::random(rng))
     }
     fn is_zero(&self) -> bool {
         self.0.is_zero()

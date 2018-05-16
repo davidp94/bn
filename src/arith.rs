@@ -1,5 +1,4 @@
 use std::cmp::Ordering;
-use rand::Rng;
 
 #[cfg(feature = "rustc-serialize")]
 use rustc_serialize::{Decodable, Decoder, Encodable, Encoder};
@@ -52,11 +51,6 @@ impl U512 {
         debug_assert!(0 == carry);
 
         U512(res)
-    }
-
-    /// Get a random U512
-    pub fn random<R: Rng>(rng: &mut R) -> U512 {
-        U512(rng.gen())
     }
 
     pub fn get_bit(&self, n: usize) -> Option<bool> {
@@ -235,11 +229,6 @@ impl U256 {
     #[inline]
     pub fn one() -> U256 {
         U256([1, 0, 0, 0])
-    }
-
-    /// Produce a random number (mod `modulo`)
-    pub fn random<R: Rng>(rng: &mut R, modulo: &U256) -> U256 {
-        U512::random(rng).divrem(modulo).1
     }
 
     pub fn is_zero(&self) -> bool {
